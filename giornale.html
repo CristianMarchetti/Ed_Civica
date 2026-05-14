@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Neon Tech - Eco News</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Griglia principale: 3 sezioni affiancate e identiche */
+        .giornale-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        /* Anteprima dell'articolo (Stile sobrio ed elegante) */
+        .anteprima-articolo {
+            background: #111622;
+            border-top: 4px solid #00d2ff;
+            border-left: 1px solid #222;
+            border-right: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px; /* Forza le dimensioni a essere uguali */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .anteprima-articolo:hover {
+            transform: translateY(-5px);
+            border-top-color: #39ff14;
+            cursor: pointer;
+        }
+
+        .occhiello {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .titolo-giornale {
+            font-size: 1.3rem;
+            color: #fff;
+            margin: 0 0 15px 0;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.3;
+        }
+
+        .estratto {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-apri {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #00d2ff;
+            align-self: flex-start;
+        }
+
+        /* IL TRUCCO DEL GIORNALE A SCHERMO INTERO (Finestra Modale) */
+        .articolo-completo {
+            display: none; /* Nascosto di default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 14, 23, 0.98); /* Copre tutto il sito */
+            z-index: 9999;
+            overflow-y: auto; /* Permette di scrollare se il testo è lungo */
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* Quando l'articolo riceve il comando "target", si mostra a schermo intero */
+        .articolo-completo:target {
+            display: block;
+            animation: entraFoglio 0.4s ease-out;
+        }
+
+        /* Contenitore interno del testo per non farlo allargare troppo */
+        .foglio-giornale {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #111622;
+            border: 1px solid #333;
+            border-top: 6px solid #39ff14;
+            padding: 40px;
+            color: #e0e0e0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .foglio-giornale h2 {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #333;
+            padding-bottom: 15px;
+        }
+
+        .foglio-giornale h3 {
+            font-size: 1.2rem;
+            color: #39ff14;
+            margin: 25px 0 10px 0;
+        }
+
+        /* Tasto Esci posizionato in alto a destra del foglio */
+        .btn-chiudi {
+            display: inline-block;
+            background: #ff3333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            transition: background 0.2s;
+        }
+
+        .btn-chiudi:hover {
+            background: #cc0000;
+        }
+
+        @keyframes entraFoglio {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Adattamento per telefoni */
+        @media (max-width: 900px) {
+            .giornale-grid { grid-template-columns: 1fr; }
+            .foglio-giornale { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="informatica.html">I Giganti Tech</a>
+        <a href="green-computing.html">Green Computing</a>
+        <a href="energia.html">Energia Solare</a>
+        <a href="agenda2030.html">Futuro Sostenibile</a>
+        <a href="reti.html">Reti Green</a>
+        <a href="biomasse.html">Potere delle Biomasse</a>
+        <a href="lbg.html">Realtà Locale</a>
+        <a href="plogging.html">Plogging</a>
+        <a href="giornale.html" class="active">Eco News</a>
+    </nav>
+
+    <header><h1>ECO NEWS: IL QUOTIDIANO DELLA SOSTENIBILITÀ</h1></header>
+
+    <div class="container" style="max-width: 1200px;">
+        <p style="text-align: center; color: #888; font-style: italic; margin-bottom: 30px;">Seleziona un articolo per aprirlo in prima pagina a schermo intero.</p>
+        
+        <div class="giornale-grid">
+
+            <a href="#art-apple" style="text-decoration: none;">
+                <div class="anteprima-articolo">
+                    <div>
+                        <span class="occhiello">REPORT / TECH ECO</span>
+                        <h2 class="titolo-giornale">Apple e l'Ambiente: le strategie per il futuro</h2>
+                        <p class="estratto">Scopri gli obiettivi della multinazionale di Cupertino per raggiungere la neutralità carbonica entro il 2030.</p>
+                    </div>
+                    <span class="btn-apri">Leggi articolo completo →</span>
+                </div>
+            </a>
+
+            <a href="#art-dell" style="text-decoration: none;">
+                <div class="anteprima-articolo">
+                    <div>
+                        <span class="occhiello">REPORT / CIRCOLARITÀ</span>
+                        <h2 class="titolo-giornale">Dell e la Sostenibilità: il piano d'azione</h2>
+                        <p class="estratto">Analisi del piano globale "Progress Made Real" sviluppato per favorire il riciclo e l'economia circolare.</p>
+                    </div>
+                    <span class="btn-apri">Leggi articolo completo →</span>
+                </div>
+            </a>
+
+            <a href="#art-ibm" style="text-decoration: none;">
+                <div class="anteprima-articolo">
+                    <div>
+                        <span class="occhiello">REPORT / GREEN IT</span>
+                        <h2 class="titolo-giornale">IBM e l'Informatica Verde nei data center</h2>
+                        <p class="estratto">Come l'uso mirato dell'intelligenza artificiale e l'ottimizzazione delle risorse riducono i consumi elettrici.</p>
+                    </div>
+                    <span class="btn-apri">Leggi articolo completo →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <div id="art-apple" class="articolo-completo">
+            <div class="foglio-giornale">
+                <a href="#" class="btn-chiudi">✕ Chiudi Articolo</a>
+                <h2>Apple e l'Ambiente</h2>
+             <img src="tech.jpg" alt="Logo Apple" style="width:20%; border-radius:10px; border: 1px solid var(--neon-blue); margin-bottom: 20px; box-shadow: 0 0 15px var(--neon-blue);">
+
+                <p>Apple è una delle aziende tecnologiche più famose al mondo ed è molto impegnata a ridurre l'impatto ambientale dei suoi prodotti e delle sue attività.</p>
+                <h3>Obiettivo emissioni zero:</h3>
+                <p>Apple ha stabilito un obiettivo ambizioso: diventare completamente "carbon neutral" entro il 2030. Questo significa che ogni prodotto venduto, dalla produzione all'utilizzo, non avrà un impatto netto sul riscaldamento globale.</p>
+                <h3>Uso di energie rinnovabili:</h3>
+                <p>Tutti gli uffici, i negozi e i data center di Apple in tutto il mondo funzionano già al 100% con energia pulita, come l'energia solare e quella eolica. Inoltre, Apple sta aiutando i suoi fornitori a fare la stessa cosa.</p>
+                <h3>Materiali riciclati e il robot Daisy:</h3>
+                <p>Per evitare di estrarre nuove risorse dalla Terra, Apple usa sempre più materiali riciclati, come alluminio, oro e terre rare, per costruire i suoi dispositivi. Per fare questo, ha creato un robot speciale chiamato <strong>Daisy</strong>, capace di smontare gli iPhone usati per recuperare i materiali preziosi all'interno senza rovinarli.</p>
+                <h3>Meno plastica nei pacchetti:</h3>
+                <p>Apple ha ridotto quasi del tutto l'uso della plastica nelle sue confezioni, sostituendola con carta riciclata o fibra di legno proveniente da foreste gestite in modo responsabile. Inoltre, togliendo il caricabatterie dalle scatole degli iPhone, ha ridotto le dimensioni delle confezioni, permettendo di trasportare più telefoni contemporaneamente e riducendo l'inquinamento causato dai trasporti.</p>
+            </div>
+        </div>
+
+        <div id="art-dell" class="articolo-completo">
+            <div class="foglio-giornale">
+                <a href="#" class="btn-chiudi">✕ Chiudi Articolo</a>
+                <h2>Dell e la Sostenibilità</h2>
+              <img src="tech2.jpg" alt="Logo IBM" style="width:20%; border-radius:10px; border: 1px solid var(--neon-blue); margin-bottom: 20px; box-shadow: 0 0 15px var(--neon-blue);">
+
+                <p>Dell è un'azienda leader nella produzione di computer e server, e ha avviato un piano a lungo termine chiamato <strong>"Progress Made Real"</strong> per migliorare la sostenibilità.</p>
+                <h3>Economia circolare e design per il riciclo:</h3>
+                <p>Dell progetta i suoi computer pensando fin dall'inizio a come potranno essere riciclati. Molti dei suoi prodotti, come i computer portatili della linea XPS, contengono plastiche riciclate tratte da vecchi dispositivi elettronici o persino plastica raccolta dagli oceani prima che possa inquinare le spiagge.</p>
+                <h3>Riduzione dei rifiuti elettronici (e-waste):</h3>
+                <p>L'azienda offers programmi globali di ritiro dell'usato. Quando un cliente acquista un nuovo computer, Dell ritira quello vecchio (di qualsiasi marca) per riciclarne i componenti o rigenerarlo per una seconda vita.</p>
+                <h3>Imballaggi ecologici:</h3>
+                <p>Dell utilizza materiali innovativi e biodegradabili per proteggere i computer durante il trasporto, come il bambù riciclato o una speciale schiuma creata dai funghi, riducendo drasticamente l'uso del polistirolo.</p>
+                <h3>Efficienza energetica:</h3>
+                <p>I dispositivi Dell sono progettati per consumare sempre meno elettricità durante il loro utilizzo, aiutando sia l'ambiente sia i consumatori a risparmiare sulle bollette.</p>
+            </div>
+        </div>
+
+        <div id="art-ibm" class="articolo-completo">
+            <div class="foglio-giornale">
+                <a href="#" class="btn-chiudi">✕ Chiudi Articolo</a>
+                <h2>IBM e l'Informatica Verde</h2>
+              <img src="tech3.png" alt="Dell" style="width:20%; border-radius:10px; border: 1px solid var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue);">
+
+                <p>IBM (International Business Machines) è una delle più antiche aziende tecnologiche del mondo e si concentra sulla sostenibilità legata soprattutto ai grandi server e ai software aziendali.</p>
+                <h3>Data Center efficienti:</h3>
+                <p>I data center (i luoghi in cui si trovano migliaia di computer che fanno funzionare internet) consumano moltissima energia. IBM progetta sistemi di raffreddamento avanzati e utilizza l'intelligenza artificiale per regolare la temperatura dei server solo quando necessario, risparmiando enormi quantità di elettricità.</p>
+                <h3>Tecnologia al servizio dell'ambiente:</h3>
+                <p>IBM non si limita a ridurre il proprio impatto, ma crea software per aiutare altre aziende e scienziati a proteggere il pianeta. Ad esempio, i supercomputer IBM vengono usati per simulare i cambiamenti climatici, prevedere l'inquinamento dell'aria e ottimizzare l'uso dell'acqua nell'agricoltura.</p>
+                <h3>Gestione del ciclo di vita dei server:</h3>
+                <p>Poiché produce grandi computer industriali, IBM ha un centro specializzato nel ricondizionamento. Quasi il 95% dei server restituiti dai clienti viene riparato e rivenduto, oppure smontato per riciclare i metalli preziosi.</p>
+                <h3>Riduzione delle emissioni:</h3>
+                <p>IBM si è impegnata a raggiungere le emissioni nette di gas serra pari a zero entro il 2030, aumentando l'uso di elettricità proveniente da fonti rinnovabili per tutte le sue sedi mondiali.</p>
+            </div>
+        </div>
+
+        <div class="pagination" style="margin-top: 60px;">
+            <a href="plogging.html" class="btn">← Plogging</a>
+            <a href="index.html" class="btn">Torna alla Home</a>
+        </div>
+    </div>
+</body>
+</html>
